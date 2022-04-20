@@ -16,19 +16,23 @@ This repository contains the source code for commissionapp, an application that 
 
 ### Instructions
 
-1. To run the application, execute [this script](./tools/run-app.sh).
+1. To run automated tests, execute [this script](./tools/run-tests.sh).
+
+
+2. To run the application, execute [this script](./tools/run-app.sh).
 
    The application then starts listening for POST requests at [https://localhost:8080/api/transactions](https://localhost:8080/api/transactions).
 
    
-2. Manual tests:
+3. Manual tests:
 
    Sample test cases are available [here](./commissionapp/src/test/resources/test-cases).
 
-   You can feed them to postman if you wish, but please note that they are all covered by the automatic test suite.
+   You can feed them to postman, but please note that they are already covered by the automated test suite.
 
       Each test case there (represented by a folder, e.g. [currency-conversion-1](./commissionapp/src/test/resources/test-cases/currency-conversion-1)) contains an ordered list of 1+ request-response pairs.
-   All requests need to be fed to the application in the defined order for the relationship between the requests and responses to stand (as implied by Rule 3: High turnover discount). In other words, the application has a state and the test cases are based on this assumption.
+   Note that the application has a state and the test cases are based on this assumption; for that reason, requests in the list need to be fed to the REST API in the defined order for the relationship between each request and its corresponding response to hold.
+
 
 ### Notes and warnings
 

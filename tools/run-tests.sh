@@ -1,0 +1,1 @@
+./mvnw -f ../commissionapp/pom.xml verify

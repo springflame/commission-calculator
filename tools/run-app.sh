@@ -1,1 +1,1 @@
-java -jar ../commissionapp/target/commissionapp-1.0.0-SNAPSHOT.jar
+java -jar ./commissionapp-1.0.0-SNAPSHOT.jar
