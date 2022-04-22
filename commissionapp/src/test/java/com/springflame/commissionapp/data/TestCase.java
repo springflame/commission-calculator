@@ -25,7 +25,7 @@ public class TestCase {
 
     private static String readFile(String fileName) {
         try {
-            InputStream resource = new ClassPathResource(fileName).getInputStream();
+            InputStream resource = new ClassPathResource("test-cases/" + fileName).getInputStream();
             return new String(resource.readAllBytes());
         } catch (IOException e) {
             throw new RuntimeException("Failed to initialize test data, root cause: " + e);

@@ -8,17 +8,21 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, String> {
 
 	@Query(
 			name = "findAllByMonth",
-			value = "SELECT * FROM Transaction transaction WHERE YEAR(transaction.date) = :yearValue AND MONTH(transaction.date) = :monthValue"
+			value = "SELECT * FROM Transaction transaction " +
+					"WHERE YEAR(transaction.date) = :yearValue " +
+					"AND MONTH(transaction.date) = :monthValue " +
+					"AND transaction.id <> :originalId"
 	)
-	List<Transaction> findAllByMonth(@Param("yearValue") Integer yearValue, @Param("monthValue") Integer monthValue);
+	List<Transaction> doFindOtherTransactionsByMonth(@Param("originalId") UUID originalId, @Param("yearValue") Integer yearValue, @Param("monthValue") Integer monthValue);
 
-	default List<Transaction> findByDateInSameMonth(LocalDate original) {
-		return this.findAllByMonth(original.getYear(), original.getMonth().getValue());
+	default List<Transaction> findOtherTransactionsByMonth(Transaction transaction) {
+		return this.doFindOtherTransactionsByMonth(transaction.getId(), transaction.getDate().getYear(), transaction.getDate().getMonth().getValue());
 	}
 }

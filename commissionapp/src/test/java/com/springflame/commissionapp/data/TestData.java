@@ -1,7 +1,12 @@
 package com.springflame.commissionapp.data;
 
+import com.springflame.commissionapp.dto.CommissionDTO;
+import com.springflame.commissionapp.dto.TransactionDTO;
 import org.assertj.core.util.Lists;
 
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public class TestData {
@@ -74,4 +79,19 @@ public class TestData {
 			highTurnoverAppliedOnSecondTransaction,
 			highTurnoverResetNextMonth
 	);
+
+	public static TransactionDTO createTransaction() {
+		TransactionDTO transactionDTO = new TransactionDTO();
+		transactionDTO.setAmount(new BigDecimal("2.00"));
+		transactionDTO.setCurrency("USD");
+		transactionDTO.setDate(LocalDate.ofYearDay(2021, 1));
+		return transactionDTO;
+	}
+
+	public static CommissionDTO createCommission() {
+		CommissionDTO mockCommission = new CommissionDTO();
+		mockCommission.setAmount(new BigDecimal("1.23"));
+		mockCommission.setCurrency("EUR");
+		return mockCommission;
+	}
 }
