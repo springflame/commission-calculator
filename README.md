@@ -22,7 +22,7 @@ This repository contains the source code for commissionapp, an application that 
 
 2. To run the application, execute [this script](./tools/run-app.sh).
 
-   The application then starts listening for POST requests at [https://localhost:8080/api/transactions](https://localhost:8080/api/transactions).
+   The application then starts listening for POST requests at [localhost:8080/api/transactions](localhost:8080/api/transactions).
 
    
 3. Manual tests:
