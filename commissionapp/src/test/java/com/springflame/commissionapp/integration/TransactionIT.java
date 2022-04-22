@@ -6,20 +6,17 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
-@ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class TransactionIT {
 	private final static String BASE_URI = "http://localhost";
@@ -52,9 +49,9 @@ public class TransactionIT {
 			softAssertions.assertThat(response.statusCode())
 					.as("Http status")
 					.isEqualTo(HttpStatus.OK.value());
-			softAssertions.assertThat(response.getBody().toString())
+			softAssertions.assertThat(response.asString())
 					.as("JSON response (commission)")
-					.isEqualTo(entry.getValue());
+					.isEqualToIgnoringWhitespace(entry.getValue());
 			softAssertions.assertAll();
 		}
 	}

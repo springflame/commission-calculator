@@ -10,6 +10,7 @@ import org.springframework.util.ObjectUtils;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 class VolumeDiscountRule implements CommissionCalculationRule {
@@ -24,11 +25,14 @@ class VolumeDiscountRule implements CommissionCalculationRule {
 
 	@Override
 	public boolean isApplicable(Transaction transaction) {
-		List<Transaction> otherTransactionsInTheSameMonth = transactionRepository.findOtherTransactionsByMonth(transaction);
-		if (ObjectUtils.isEmpty(otherTransactionsInTheSameMonth)) {
+		List<Transaction> allTransactionsInTheSameMonth = transactionRepository.findTransactionsByMonth(transaction)
+				.stream()
+				.filter(anotherTransaction -> !anotherTransaction.getId().equals(transaction.getId()))
+				.collect(Collectors.toList());
+		if (ObjectUtils.isEmpty(allTransactionsInTheSameMonth)) {
 			return false;
 		}
-		return otherTransactionsInTheSameMonth
+		return allTransactionsInTheSameMonth
 				.stream()
 				.map(Transaction::getAmountInSystemCurrency)
 				.reduce(BigDecimal.valueOf(0), BigDecimal::add).compareTo(volumeThreshold) >= 0;

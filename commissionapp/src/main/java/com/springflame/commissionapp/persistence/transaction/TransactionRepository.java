@@ -6,23 +6,22 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, String> {
 
 	@Query(
 			name = "findAllByMonth",
-			value = "SELECT * FROM Transaction transaction " +
+			value = "SELECT transaction FROM Transaction transaction " +
 					"WHERE YEAR(transaction.date) = :yearValue " +
 					"AND MONTH(transaction.date) = :monthValue " +
-					"AND transaction.id <> :originalId"
+					"AND transaction.clientId = :clientId"
 	)
-	List<Transaction> doFindOtherTransactionsByMonth(@Param("originalId") UUID originalId, @Param("yearValue") Integer yearValue, @Param("monthValue") Integer monthValue);
+	List<Transaction> doFindTransactionsByMonth(@Param("yearValue") Integer yearValue, @Param("monthValue") Integer monthValue, String clientId);
 
-	default List<Transaction> findOtherTransactionsByMonth(Transaction transaction) {
-		return this.doFindOtherTransactionsByMonth(transaction.getId(), transaction.getDate().getYear(), transaction.getDate().getMonth().getValue());
+	default List<Transaction> findTransactionsByMonth(Transaction transaction) {
+		return this.doFindTransactionsByMonth(transaction.getDate().getYear(),
+				transaction.getDate().getMonth().getValue(), transaction.getClientId());
 	}
 }

@@ -16,7 +16,8 @@ This repository contains the source code for commissionapp, an application that 
 
 ### Instructions
 
-1. To run automated tests, execute [this script](./tools/run-tests.sh).
+1. To run unit tests, execute [this script](./tools/run-tests.sh).
+   There is an issue with running integration tests as part of the same command: they have to be run through IntelliJ. I did not have time to fix it.
 
 
 2. To run the application, execute [this script](./tools/run-app.sh).

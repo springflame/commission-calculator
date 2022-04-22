@@ -17,18 +17,13 @@ public class CurrencyConverter {
 	private ExchangeRateRestClient exchangeRateRestClient;
 
 	public MoneyAmount convertToSystemCurrency(BigDecimal amount, String currency, LocalDate date) {
-		BigDecimal exchangeRate = exchangeRateRestClient.getConvertedAmount(
+		BigDecimal convertedAmount = exchangeRateRestClient.getConvertedAmount(
 				ConversionInput.builder()
 						.date(date)
 						.sourceCurrency(currency)
 						.sourceAmount(amount)
 						.targetCurrency(systemCurrency)
 						.build());
-		BigDecimal convertedAmount = getConvertedAmount(exchangeRate, amount);
 		return MoneyAmount.of(convertedAmount, systemCurrency);
-	}
-
-	private BigDecimal getConvertedAmount(BigDecimal exchangeRate, BigDecimal originalAmount) {
-		return originalAmount.divide(exchangeRate, RoundingMode.HALF_UP);
 	}
 }

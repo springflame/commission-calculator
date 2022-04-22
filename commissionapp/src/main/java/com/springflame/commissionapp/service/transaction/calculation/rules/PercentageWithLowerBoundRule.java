@@ -20,7 +20,7 @@ class PercentageWithLowerBoundRule implements CommissionCalculationRule {
 
 	@Override
 	public CommissionDTO apply(Transaction transaction) {
-		BigDecimal commission = transaction.getAmountInOriginalCurrency().multiply(commissionRate);
+		BigDecimal commission = transaction.getAmountInSystemCurrency().multiply(commissionRate);
 		if (commission.compareTo(lowerBound) < 0) {
 			commission = lowerBound;
 		}
