@@ -30,7 +30,7 @@ This repository contains the source code for commissionapp, an application that 
 
    You can feed them to postman, but please note that they are already covered by the automated test suite.
 
-      Each test case there (represented by a folder, e.g. [currency-conversion-1](./commissionapp/src/test/resources/test-cases/currency-conversion-1)) contains an ordered list of 1+ request-response pairs.
+      Each test case there (represented by a folder, e.g. [high-turnover-reset-next-month](./commissionapp/src/test/resources/test-cases/high-turnover-reset-next-month)) contains an ordered list of 1+ request-response pairs.
    Note that the application has a state and the test cases are based on this assumption; for that reason, requests in the list need to be fed to the REST API in the defined order for the relationship between each request and its corresponding response to hold.
 
 
